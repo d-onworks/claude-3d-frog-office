@@ -12,8 +12,8 @@ One office scene shows who is working, who is taking a break, and who is waiting
 </p>
 
 <p align="center">
-  <a href="docs/video/promo-ko.mp4"><img src="docs/img/promo-ko.gif" width="100%" alt="Promo video: each project becomes a frog or capybara employee, speech bubbles show what they are doing, and little subagents follow their owner around a 3D office"></a><br>
-  <sub>Click for the 16-second promo video with sound (Korean captions) · made by AutoFrog Studio · recorded in our in-house terminal app</sub>
+  <a href="https://raw.githubusercontent.com/d-onworks/claude-3d-frog-office/master/docs/video/promo-ko.mp4"><img src="docs/img/promo-ko.gif" width="100%" alt="Promo video: each project becomes a frog or capybara employee, speech bubbles show what they are doing, and little subagents follow their owner around a 3D office"></a><br>
+  <sub>Click to download the 16-second promo video with sound (mp4, Korean captions) · made by AutoFrog Studio · recorded in our in-house terminal app</sub>
 </p>
 
 ## The more sessions you open, the more you miss

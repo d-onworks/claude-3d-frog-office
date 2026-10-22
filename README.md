@@ -12,8 +12,8 @@
 </p>
 
 <p align="center">
-  <a href="docs/video/promo-ko.mp4"><img src="docs/img/promo-ko.gif" width="100%" alt="광고 영상 — 프로젝트마다 개구리·카피바라 직원이 되어 일하고, 말풍선으로 지금 하는 일을 보여 주고, 서브에이전트 꼬마가 주인을 따라다니는 3D 사무실"></a><br>
-  <sub>그림을 누르면 소리 있는 16초 광고 영상이 열립니다 · 오토프로그 스튜디오 제작 · 저희 사내 터미널 앱 화면으로 찍었습니다</sub>
+  <a href="https://raw.githubusercontent.com/d-onworks/claude-3d-frog-office/master/docs/video/promo-ko.mp4"><img src="docs/img/promo-ko.gif" width="100%" alt="광고 영상 — 프로젝트마다 개구리·카피바라 직원이 되어 일하고, 말풍선으로 지금 하는 일을 보여 주고, 서브에이전트 꼬마가 주인을 따라다니는 3D 사무실"></a><br>
+  <sub>그림을 누르면 소리 있는 16초 광고 영상(mp4)을 받습니다 · 오토프로그 스튜디오 제작 · 저희 사내 터미널 앱 화면으로 찍었습니다</sub>
 </p>
 
 ## 창이 많아질수록 놓치는 것
