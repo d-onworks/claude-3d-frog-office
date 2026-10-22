@@ -1,0 +1,19 @@
+{
+  "name": "claude-3d-office",
+  "version": "0.1.0",
+  "description": "A view-only 3D office that shows each Claude Code session as a character. Local only, zero dependencies.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "start": "node scripts/start.mjs",
+    "stop": "node scripts/stop.mjs",
+    "status": "node scripts/status.mjs",
+    "uninstall": "node scripts/uninstall.mjs",
+    "demo": "node scripts/start.mjs --demo --open",
+    "test": "node --test"
+  }
+}
