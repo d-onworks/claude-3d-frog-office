@@ -1,4 +1,4 @@
-# 3D 사무실 (claude-3d-office) — 구조와 약속
+# 3D 사무실 (claude-3d-frog-office) — 구조와 약속
 
 Claude Code 세션 하나하나를 사무실 캐릭터(개구리·카피바라)로 보여 주는 **보기 전용** 로컬 웹 화면.
 어떤 IDE·터미널(VS Code, Cursor, JetBrains, iTerm, Windows Terminal …)에서 Claude 를 쓰든 동작해야 한다.
@@ -150,6 +150,6 @@ thinking·빈 글은 건너뛴다. 대화 기록 형식은 Claude Code 내부 �
 - 우리 훅 식별 = command 에 `office-hook.mjs` 가 들어 있음. uninstall 은 그것만 지운다(남의 훅 보존).
 - CMD 는 bash·cmd·PowerShell 어디서 돌아도 되게: node 실행 파일 경로에 공백이 없으면 그 절대경로(따옴표 없이),
   있으면 `node`. 스크립트 경로는 **슬래시(/)로 바꾸고 큰따옴표로** 감싼다.
-  예) `/opt/homebrew/bin/node "/Users/me/claude-3d-office/hooks/office-hook.mjs"`
-      `node "C:/Users/me/claude-3d-office/hooks/office-hook.mjs"`
+  예) `/opt/homebrew/bin/node "/Users/me/claude-3d-frog-office/hooks/office-hook.mjs"`
+      `node "C:/Users/me/claude-3d-frog-office/hooks/office-hook.mjs"`
 - 이미 열려 있던 Claude 세션은 훅을 새로 안 읽는다 → 그동안은 대체 모드로 보이고, 다시 켜면(또는 /hooks 확인) 정밀 모드.

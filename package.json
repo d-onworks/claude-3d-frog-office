@@ -1,9 +1,21 @@
 {
-  "name": "claude-3d-office",
+  "name": "claude-3d-frog-office",
   "version": "0.1.0",
-  "description": "A view-only 3D office that shows each Claude Code session as a character. Local only, zero dependencies.",
+  "description": "A view-only 3D office that shows each Claude Code session as a frog or capybara character. Local only, zero dependencies, macOS and Windows.",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d-onworks/claude-3d-frog-office.git"
+  },
+  "keywords": [
+    "claude-code",
+    "claude",
+    "hooks",
+    "ai-agents",
+    "dashboard",
+    "developer-tools"
+  ],
   "engines": {
     "node": ">=18"
   },

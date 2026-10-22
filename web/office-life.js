@@ -5,7 +5,7 @@
 // 사람은 Person.id(프로젝트 경로)로 가른다. 좌표는 office-world.js, 대사는 i18n.js.
 
 const OfficeLife = (() => {
-  const SPEED = 58, MINI_SPEED = 78;        // 걷는 속도(그림 픽셀/초) — 보폭(걸음 위상)과 맞춘 값
+  const SPEED = 36, MINI_SPEED = 78;        // 걷는 속도(그림 픽셀/초) — 어른은 고른 걸음, 서브에이전트는 종종걸음
   const SIT_DESK = 18, SIT_SOFA = 16;       // 의자 등받이·방석 점 → 앉은 그림의 발끝까지
   const L = {
     t: 0, people: new Map(), minis: new Map(), desks: new Map(), taken: new Map(), chats: new Set(),
@@ -497,7 +497,7 @@ const OfficeLife = (() => {
       if (p.alpha < 1 && !p.gone) p.alpha = Math.min(1, p.alpha + dt * 2);
       const paused = p.over && t < p.over.until && p.over.stop;
       if (p.path.length && !paused) {
-        if (step(p, SPEED, dt, 7.6)) { if (p.leaving) p.gone = true; else advance(p); }
+        if (step(p, SPEED, dt, 0)) { if (p.leaving) p.gone = true; else advance(p); }
       } else if (!p.path.length && p.act && t > p.until) advance(p);
       else if (!p.path.length && !p.act && !p.leaving) choose(p);
       if (p.gone) { p.alpha -= dt * 2.5; if (p.alpha <= 0) { L.people.delete(p.id); continue; } }

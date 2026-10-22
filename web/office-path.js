@@ -104,7 +104,7 @@ function officeMotion(L, SIT_DESK) {
   }
   function step(e, speed, dt, rate) {
     if (!e.path.length) return false;
-    e.wp = (e.wp || 0) + dt * rate;                       // 걸음 위상 — π 마다 한 걸음(그리기가 이걸로 다리를 바꾼다)
+    if (rate) e.wp = (e.wp || 0) + dt * rate;             // 서브에이전트 걸음 위상 — π 마다 한 걸음(그리기가 이걸로 다리를 바꾼다)
     if (blocked([e.x, e.y], e.path[0])) {
       const goal = e.path[e.path.length - 1];
       e.path = route([e.x, e.y], goal);
@@ -113,8 +113,9 @@ function officeMotion(L, SIT_DESK) {
     unstick(e, dist([e.x, e.y], e.path[0]));
     const [tx, ty] = e.path[0];
     const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
-    const mv = speed * dt * (0.7 + 0.6 * Math.abs(Math.sin(e.wp)));
+    const mv = rate ? speed * dt * (0.7 + 0.6 * Math.abs(Math.sin(e.wp))) : speed * dt;   // 어른은 고르게(저벅저벅)
     e.vx = dx; e.vy = dy;
+    e.dist = (e.dist || 0) + Math.min(d, mv);            // 걸은 거리 — 어른 걷기 그림은 이걸로 장을 넘긴다
     if (d <= mv) { e.x = tx; e.y = ty; e.path.shift(); return !e.path.length; }
     e.x += dx / d * mv; e.y += dy / d * mv;
     return false;

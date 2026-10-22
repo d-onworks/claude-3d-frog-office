@@ -43,10 +43,10 @@ async function scratchEnv() {
 const run = (script, args, env) => spawnSync(process.execPath, [path.join(REPO, 'scripts', script), ...args], { env, encoding: 'utf8', timeout: 30000 });
 
 test('buildCommand: 공백 없는 node 는 절대경로, 있으면 node, 스크립트는 슬래시 + 큰따옴표', () => {
-  assert.equal(buildCommand('/opt/homebrew/bin/node', '/Users/me/claude-3d-office/hooks/office-hook.mjs'),
-    '/opt/homebrew/bin/node "/Users/me/claude-3d-office/hooks/office-hook.mjs"');
-  assert.equal(buildCommand('C:\\Program Files\\nodejs\\node.exe', 'C:\\Users\\me\\claude-3d-office\\hooks\\office-hook.mjs'),
-    'node "C:/Users/me/claude-3d-office/hooks/office-hook.mjs"');
+  assert.equal(buildCommand('/opt/homebrew/bin/node', '/Users/me/claude-3d-frog-office/hooks/office-hook.mjs'),
+    '/opt/homebrew/bin/node "/Users/me/claude-3d-frog-office/hooks/office-hook.mjs"');
+  assert.equal(buildCommand('C:\\Program Files\\nodejs\\node.exe', 'C:\\Users\\me\\claude-3d-frog-office\\hooks\\office-hook.mjs'),
+    'node "C:/Users/me/claude-3d-frog-office/hooks/office-hook.mjs"');
   assert.equal(buildCommand('C:\\nvm\\node.exe', 'D:\\x\\hooks\\office-hook.mjs'), 'C:/nvm/node.exe "D:/x/hooks/office-hook.mjs"');
   assert.ok(!buildCommand().startsWith('"')); // PowerShell 은 따옴표로 시작하는 명령을 실행 못 한다
 });

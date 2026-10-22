@@ -1,4 +1,4 @@
-# claude-3d-office — Claude Code 작업 지침
+# claude-3d-frog-office — Claude Code 작업 지침
 
 이 저장소는 **Claude Code 세션을 아이소메트릭 사무실 캐릭터로 보여 주는 로컬 웹 화면**이다.
 사용자가 이 폴더에서 Claude 에게 설치·실행을 부탁하면 아래 절차를 그대로 따른다. 사용자의 언어(한국어/영어)로 답한다.
@@ -7,7 +7,7 @@
 
 | 사용자 말 (예) | 할 일 |
 |---|---|
-| "3D 사무실 적용해줘", "설치해줘", "install", "set it up", "apply 3D office" | 아래 **설치 절차** |
+| "3D 사무실 적용해줘", "설치해줘", "install", "set it up", "apply 3D office", "Set up the 3D office" | 아래 **설치 절차** |
 | "3D 사무실 열어줘", "켜줘", "open the office", "start" | `node scripts/start.mjs --open` |
 | "꺼줘", "서버 멈춰", "stop" | `node scripts/stop.mjs` |
 | "상태 봐줘", "안 보여", "doctor", "status" | `node scripts/status.mjs` 결과를 읽고 아래 **문제 해결** 참고 |

@@ -115,7 +115,7 @@ test('/api/office·/api/config·/api/health 형식', async () => {
   assert.equal(typeof c.version, 'string');
   const h = JSON.parse((await req(port, '/api/health')).body);
   assert.equal(h.ok, true);
-  assert.equal(h.app, 'claude-3d-office');
+  assert.equal(h.app, 'claude-3d-frog-office');
   assert.equal(h.demo, false);
   assert.equal(h.pid, process.pid);
 });

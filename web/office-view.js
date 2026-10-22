@@ -12,26 +12,31 @@
     stand: ["", 0, -1], sitBack: ["", 3, 0], sitFront: ["", 4, 0], mug: ["", 5, 0],
     talk: ["2", 1, 1], laugh: ["2", 2, 0], sip: ["2", 3, 0], wave: ["2", 4, 0], think: ["2", 5, 0],
     phone: ["2", 6, 0], stretch: ["2", 7, 0],
-    // 걷기 = walk 시트. 앞걸음(walkF*)·뒷걸음(walkB*)·서브에이전트 앞(mWalk*)·뒤(mBack*) — 바꿀 땐 docs/SPRITES.md
-    walkF: ["walk", 0, -1], walkF2: ["walk", 1, -1], walkB: ["walk", 2, 1], walkB2: ["walk", 3, 1],
-    mWalk: ["walk", 4, -1], mWalk2: ["walk", 5, -1], mBack: ["walk", 6, 1], mBack2: ["walk", 7, 1],
-    standBack: ["walk", 2, 1],      // 등 보이고 서 있기(서버실 랙·커피 머신 앞) — 뒷걸음 첫 칸을 빌려 쓴다
+    // 걷기 = walk 시트. 어른 앞걸음 0~7·뒷걸음 8~15(아래 stepF*·stepB*), 서브에이전트 앞(mWalk*)·뒤(mBack*) 16~19
+    // — 바꿀 땐 docs/SPRITES.md
+    mWalk: ["walk", 16, -1], mWalk2: ["walk", 17, -1], mBack: ["walk", 18, 1], mBack2: ["walk", 19, 1],
+    standBack: ["3", 3, 1],         // 등 보이고 서 있기(서버실 랙·커피 머신 앞)
     cheer: ["3", 5, 0], scratch: ["3", 6, 0], sofaTalk: ["3", 7, 0],
     mStand: ["mini", 0, 0], mBye: ["mini", 3, 0], mJump: ["mini", 4, 0], mSide: ["mini", 5, 1], mBow: ["mini", 6, 0],
     // 휴대폰 만지작 — 서서 스크롤·문자·킥킥, 앉아서(소파 정면) 스크롤·문자·킥킥, 책상 등지고
     phScroll: ["phone", 1, 0], phText: ["phone", 2, 0], phLol: ["phone", 3, 0],
     sitScroll: ["phone", 4, 0], sitText: ["phone", 5, 0], sitBackPhone: ["phone", 6, 0], sitLol: ["phone", 7, 0],
   };
-  // 걷기 한 바퀴(두 걸음 = 걸음 위상 2π)에 돌리는 칸 — 칸이 늘면 배열만 늘린다(위상을 칸 수로 나눈다)
-  const WALK = {
-    front: ["walkF", "walkF2"], back: ["walkB", "walkB2"],
-    miniFront: ["mWalk", "mWalk2"], miniBack: ["mBack", "mBack2"],
-  };
-  // 걷기 자세는 여기서만 고른다 — 위로(화면 안쪽) 걸으면 뒷모습, 아니면 앞모습
+  // 어른 걷기 = 한 걸음 8장(앞·뒤). 칸 수가 바뀌면 WALK_N 과 시트 칸 번호만 고친다
+  const WALK_N = 8;
+  for (let n = 0; n < WALK_N; n++) { POSES["stepF" + n] = ["walk", n, -1]; POSES["stepB" + n] = ["walk", WALK_N + n, 1]; }
+  // 서브에이전트 종종걸음 한 바퀴(두 걸음 = 걸음 위상 2π)에 돌리는 칸
+  const MINI_WALK = { front: ["mWalk", "mWalk2"], back: ["mBack", "mBack2"] };
+  // 걷기 자세는 여기서만 고른다 — 위로(화면 안쪽) 걸으면 뒷모습, 아니면 앞모습.
+  // 어른은 걸은 거리로 장을 넘긴다(한 장 = 그림 보폭 strides 를 화면 키로 줄인 만큼) — 발이 바닥에서 안 미끄러진다
   function walkPose(e, mini) {
     const up = (e.vy || 0) < -Math.abs(e.vx || 0) * (mini ? 0.3 : 0.25);
-    const set = mini ? (up ? WALK.miniBack : WALK.miniFront) : (up ? WALK.back : WALK.front);
-    return set[Math.floor((e.wp || 0) / (2 * Math.PI / set.length)) % set.length];
+    if (mini) {
+      const set = up ? MINI_WALK.back : MINI_WALK.front;
+      return set[Math.floor((e.wp || 0) / (2 * Math.PI / set.length)) % set.length];
+    }
+    const n = Math.floor((e.dist || 0) / (A.strides[e.species] * standOf(e) / A.stand)) % WALK_N;
+    return (up ? "stepB" : "stepF") + n;
   }
   const SHEETS = ["frog", "frog2", "frog3", "frogmini", "frogwalk", "frogphone",
                   "capy", "capy2", "capy3", "capymini", "capywalk", "capyphone"];
@@ -129,7 +134,7 @@
     if (p.over && t < p.over.until) return p.over.pose;
     if (p.path.length) {
       if (Math.abs(p.vx || 0) > 0.5) turn(p, p.vx > 0 ? 1 : -1, t);
-      return walkPose(p, false);                                  // 발 딛는 순간(위상)에만 칸이 바뀐다
+      return walkPose(p, false);
     }
     return p.act?.pose || "stand";
   }
@@ -137,11 +142,8 @@
   function drawPerson(ctx, p) {
     const t = L.t, stand = standOf(p), ph = p.phase, pose = poseOf(p, t);
     let dy = 0, dx = 0, tilt = 0, { sx, sy } = jelly(t + ph, 3.2, 0.03);
-    if (p.path.length && !(p.over && t < p.over.until)) {            // 걸음 — 한 걸음에 한 번 통, 좌우로 살랑
-      const w = Math.sin(p.wp || 0), c = 1 - Math.abs(w);             // c = 1 이면 발이 땅에 닿은 순간
-      dy = -Math.abs(w) * 3.6;
-      tilt = w * 0.045;
-      sy = 1 - 0.05 * c * c + 0.02 * (1 - c); sx = 1 + 0.04 * c * c - 0.015 * (1 - c);
+    if (p.path.length && !(p.over && t < p.over.until)) {            // 걸음 — 저벅저벅, 몸의 오르내림은 그림 8장에 들어 있다
+      sx = sy = 1;
     } else if (pose === "sitBack" && p.act?.work) {                   // 빡 코딩 — 어깨 들썩 + 잔떨림
       dx = Math.sin(t * 38 + ph) * 0.6; dy = -Math.abs(Math.sin(t * 17 + ph)) * 1.6;
       tilt = Math.sin(t * 7 + ph) * 0.03; ({ sx, sy } = jelly(t + ph, 17, 0.02));

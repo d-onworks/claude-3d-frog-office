@@ -170,7 +170,7 @@ async function main() {
     } catch (e) {
       console.error('pid 파일을 못 썼습니다 / cannot write pid file:', e.message);
     }
-    console.log(`${new Date().toISOString()} claude-3d-office ${VERSION} ${opts.demo ? 'demo ' : ''}listening on ${url}`);
+    console.log(`${new Date().toISOString()} claude-3d-frog-office ${VERSION} ${opts.demo ? 'demo ' : ''}listening on ${url}`);
     if (opts.open) openBrowser(url);
   });
   const bye = () => {

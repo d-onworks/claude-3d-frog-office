@@ -6,7 +6,7 @@ import { IS_WIN, REPO_DIR, SERVER_FILE, logFile, officeHome, pidFile, startingLo
 import { demoPort, loadConfig, resolvePort } from './config.mjs';
 import { pidAlive } from './liveness.mjs';
 
-export const APP = 'claude-3d-office';
+export const APP = 'claude-3d-frog-office';
 export const LOCK_MAX_AGE_MS = 30 * 1000;
 const LOG_MAX = 1024 * 1024; // 로그가 1MB 넘으면 .old 로 돌린다
 
